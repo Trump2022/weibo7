@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -31,6 +32,7 @@ class UsersController extends Controller
             'password' => bcrypt($request->password),
         ]);
 
+        Auth::login($user);
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
         return redirect()->route('users.show', [$user]);
         //route() 方法会自动获取 Model 的主键，也就是数据表 users 的主键 id，以上代码等同于：redirect()->route('users.show', [$user->id]);
