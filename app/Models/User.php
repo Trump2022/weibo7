@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Support\Str;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -48,5 +50,14 @@ class User extends Authenticatable
         //return "https://cdn.v2ex.com/gravatar/$hash?s=$size";
 //        return "https://cdn.sep.cc/avatar/$hash?s=$size";
         return "https://gravatar.loli.net/avatar/$hash?s=$size";
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            $user->activation_token = Str::random(10);
+        });
     }
 }
