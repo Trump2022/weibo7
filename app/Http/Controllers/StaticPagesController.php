@@ -15,7 +15,7 @@ class StaticPagesController extends Controller
             $feed_items = Auth::user()->feed()->paginate(30);
 //            echo '<pre>';
 //            $a = 12;
-//            var_dump(compact('a'));EXIT;
+//            var_dump(Auth::user()->followings->toArray(), $feed_items->toArray());EXIT;
         }
         return view('static_pages/home', compact('feed_items'));
     }
